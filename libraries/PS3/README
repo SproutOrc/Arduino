@@ -1,0 +1,25 @@
+NB: This is the old version of the library, the newest version can be found at the following link: https://github.com/TKJElectronics/USB_Host_Shield_2.0
+
+The code is released under the GNU General Public License.
+This code was developed by Kristian Lauszus.
+
+For more information visit his blog at: http://blog.tkjelectronics.dk/ or send him an email at kristianl at tkjelectronics dot dk.
+You should also visit the official wiki: https://github.com/Lauszus/PS3-Controller-BT-Library-for-Arduino/wiki/PS3-Controller-BT-wiki for information.
+
+All three PS3 Controllers are supported (Dualshock 3-, Navigation-, and Motioncontroller). 
+They communicate with the Arduino via Bluetooth using the USB Host Shield from http://www.circuitsathome.com/
+
+A special thanks go to the following people:
+"Richard Ibbotson" who made this guide: http://www.circuitsathome.com/mcu/ps3-and-wiimote-game-controllers-on-the-arduino-host-shield-part-1
+- It inspired me to get starting and had a lot of good information for the USB communication 
+ 
+"Tomoyuki Tanaka" for releasing his code for the Arduino USB Host shield connected to the wiimote: http://www.circuitsathome.com/mcu/rc-car-controlled-by-wii-remote-on-arduino
+- It helped me a lot to see the structure of the bluetooth communication
+
+Also I would like to thank all the people behind these sites about the Motion controller:
+http://thp.io/2010/psmove/
+http://www.copenhagengamecollective.org/unimove/    
+https://github.com/thp/psmoveapi
+http://code.google.com/p/moveonpc/
+
+And at last I would like to thank Oleg from http://www.circuitsathome.com/ for making such an awesome shield!
