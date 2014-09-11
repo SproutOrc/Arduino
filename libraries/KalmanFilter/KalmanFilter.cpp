@@ -135,12 +135,10 @@ void KalmanFilter::state_update(const float q_m)
  *
  * input:  X acceleration, Z acceleration
  */
-void KalmanFilter::kalman_update(const float ax_m, const float az_m)
+void KalmanFilter::kalman_update(const float angle)
 {
     /* Compute our measured angle and the error in our estimate */
-    
-    const float angle_m = atan2(-az_m, ax_m);
-    const float angle_err = angle_m - _angle;
+    const float angle_err = angle - _angle;
 
     /*
      * C_0 shows how the state measurement directly relates to

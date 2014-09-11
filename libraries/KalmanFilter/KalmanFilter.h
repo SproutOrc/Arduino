@@ -56,7 +56,7 @@ public:
     KalmanFilter(float dt);
     virtual ~KalmanFilter();
     void state_update(const float q_m);
-    void kalman_update(const float ax_m, const float az_m);
+    void kalman_update(const float angle);
 
     float getAngle() const;
     float getQBias() const;
@@ -96,8 +96,8 @@ private:
      * In this case, it indicates how much we trust the acceleromter
      * relative to the gyros.
      */
-    static const float Q_angle = 0.01;
-    static const float Q_gyro = 0.05;
+    static const float Q_angle = 0.001;
+    static const float Q_gyro = 0.005;
 };
 
 #endif /* KALMANFILTER_H_ */
