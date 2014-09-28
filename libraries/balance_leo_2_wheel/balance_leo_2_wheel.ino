@@ -3,17 +3,17 @@
 #include "MPU6050_6Axis_MotionApps20.h"
 
 #define LED 13
-#define PWM_L 10
-#define PWM_R 11
-#define DIR_L1 6
-#define DIR_L2 12
+#define PWM_L 5
+#define PWM_R 4
+#define DIR_L1 10
+#define DIR_L2 11
 #define DIR_R1 8
 #define DIR_R2 9
-#define SPD_INT_L 3//1
-#define SPD_PUL_L 4
-#define SPD_INT_R 4//7
-#define SPD_PUL_R 5
-#define MPU_INT 2//0
+#define SPD_INT_L 2//1
+#define SPD_PUL_L 6
+#define SPD_INT_R 3//7
+#define SPD_PUL_R 7
+#define MPU_INT 18//0
 #define K_AGL_AD A0
 #define K_AGL_DOT_AD A1
 #define K_POS_AD A2
@@ -60,20 +60,20 @@ void setup()
   init_IO();
 
   Wire.begin();// join I2C bus (I2Cdev library doesn't do this automatically)
-  TWBR = 24; // 400kHz I2C clock (200kHz if CPU is 8MHz)
-//  Serial.begin(9600);
+  TWBR = 12; // 400kHz I2C clock (200kHz if CPU is 8MHz)
+  Serial2.begin(57600);
   
   // initialize device
-  Serial.println(F("Initializing I2C devices..."));
+  Serial2.println(F("Initializing I2C devices..."));
   mpu.initialize();
   
   // verify connection
-  Serial.println(F("Testing device connections..."));
-  Serial.println(mpu.testConnection() ? F("MPU6050 connection successful") : F("MPU6050 connection failed"));
+  Serial2.println(F("Testing device connections..."));
+  Serial2.println(mpu.testConnection() ? F("MPU6050 connection successful") : F("MPU6050 connection failed"));
   delay(2);
   
   // load and configure the DMP
-  Serial.println(F("Initializing DMP..."));
+  Serial2.println(F("Initializing DMP..."));
   devStatus = mpu.dmpInitialize();
   
   // supply your own gyro offsets here, scaled for min sensitivity
@@ -86,16 +86,16 @@ void setup()
   if (devStatus == 0)
   {
     // turn on the DMP, now that it's ready
-    Serial.println(F("Enabling DMP..."));
+    Serial2.println(F("Enabling DMP..."));
     mpu.setDMPEnabled(true);
     
     // enable Arduino interrupt detection
-    Serial.println(F("Enabling interrupt detection (Arduino external interrupt 0)..."));
+    Serial2.println(F("Enabling interrupt detection (Arduino external interrupt 0)..."));
     attachInterrupt(MPU_INT, dmpDataReady, RISING);
     mpuIntStatus = mpu.getIntStatus();
     
     // set our DMP Ready flag so the main loop() function knows it's okay to use it
-    Serial.println(F("DMP ready! Waiting for first interrupt..."));
+    Serial2.println(F("DMP ready! Waiting for first interrupt..."));
     dmpReady = true;
     
     // get expected DMP packet size for later comparison
@@ -107,9 +107,9 @@ void setup()
     // 1 = initial memory load failed
     // 2 = DMP configuration updates failed
     // (if it's going to break, usually the code will be 1)
-    Serial.print(F("DMP Initialization failed (code "));
-    Serial.print(devStatus);
-    Serial.println(F(")"));
+    Serial2.print(F("DMP Initialization failed (code "));
+    Serial2.print(devStatus);
+    Serial2.println(F(")"));
   }
 }
 
@@ -132,7 +132,7 @@ void loop()
   {
     // reset so we can continue cleanly
     mpu.resetFIFO();
-    Serial.println(F("FIFO overflow!"));
+    Serial2.println(F("FIFO overflow!"));
     // otherwise, check for DMP data ready interrupt (this should happen frequently)
   }
   else if (mpuIntStatus & 0x02)
@@ -156,9 +156,9 @@ void loop()
     angle = ypr[1] + 0.06;                   // 0.02 is center of gravity offset
     angular_rate = -((double)gyro[1]/131.0); // converted to radian
 /*
-    Serial.print(angle * RAD_TO_DEG);Serial.print("  ");
-    Serial.print(angular_rate * RAD_TO_DEG);Serial.print("  ");
-    Serial.print("\n");
+    Serial2.print(angle * RAD_TO_DEG);Serial2.print("  ");
+    Serial2.print(angular_rate * RAD_TO_DEG);Serial2.print("  ");
+    Serial2.print("\n");
 */
     control();
     PWM_calculate();
@@ -244,26 +244,26 @@ void PWM_calculate(void)
   pwm_l = pwm + Turn_Need;
   pwm_out(pwm_l,pwm_r);
 /* 
-  Serial.write(char(gyroYrate*RAD_TO_DEG+128));
-  Serial.write(char(kalAngleY*RAD_TO_DEG+128));
-  Serial.write(char(128));
+  Serial2.write(char(gyroYrate*RAD_TO_DEG+128));
+  Serial2.write(char(kalAngleY*RAD_TO_DEG+128));
+  Serial2.write(char(128));
 */
 /*
-  Serial.print(gyroYrate*RAD_TO_DEG); Serial.print("\t");
-  Serial.print(kalAngleY*RAD_TO_DEG);Serial.print("\t");
-  Serial.print("\n");
+  Serial2.print(gyroYrate*RAD_TO_DEG); Serial2.print("\t");
+  Serial2.print(kalAngleY*RAD_TO_DEG);Serial2.print("\t");
+  Serial2.print("\n");
 */
 /*
-  Serial.print(K_angle_AD);Serial.print("\t");
-  Serial.print(K_angle_dot_AD);Serial.print("\t");
-  Serial.print(K_position_AD);Serial.print("\t");
-  Serial.print(K_position_dot_AD);Serial.print("\t");
-  Serial.print("\r\n");
+  Serial2.print(K_angle_AD);Serial2.print("\t");
+  Serial2.print(K_angle_dot_AD);Serial2.print("\t");
+  Serial2.print(K_position_AD);Serial2.print("\t");
+  Serial2.print(K_position_dot_AD);Serial2.print("\t");
+  Serial2.print("\r\n");
 */
 /*
-  Serial.print(speed_real_l);Serial.print("\t");
-  Serial.print(speed_real_r);Serial.print("\t");
-  Serial.print("\r\n");
+  Serial2.print(speed_real_l);Serial2.print("\t");
+  Serial2.print(speed_real_r);Serial2.print("\t");
+  Serial2.print("\r\n");
 */
   speed_real_l = 0;
   speed_real_r = 0;
