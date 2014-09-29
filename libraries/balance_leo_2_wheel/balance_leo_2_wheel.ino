@@ -213,6 +213,7 @@ void control()
     Turn_Need = 0;
   }
 }
+
 void PWM_calculate(void)	
 {
 
@@ -243,28 +244,6 @@ void PWM_calculate(void)
   pwm_r = pwm + Turn_Need;
   pwm_l = pwm + Turn_Need;
   pwm_out(pwm_l,pwm_r);
-/* 
-  Serial2.write(char(gyroYrate*RAD_TO_DEG+128));
-  Serial2.write(char(kalAngleY*RAD_TO_DEG+128));
-  Serial2.write(char(128));
-*/
-/*
-  Serial2.print(gyroYrate*RAD_TO_DEG); Serial2.print("\t");
-  Serial2.print(kalAngleY*RAD_TO_DEG);Serial2.print("\t");
-  Serial2.print("\n");
-*/
-/*
-  Serial2.print(K_angle_AD);Serial2.print("\t");
-  Serial2.print(K_angle_dot_AD);Serial2.print("\t");
-  Serial2.print(K_position_AD);Serial2.print("\t");
-  Serial2.print(K_position_dot_AD);Serial2.print("\t");
-  Serial2.print("\r\n");
-*/
-/*
-  Serial2.print(speed_real_l);Serial2.print("\t");
-  Serial2.print(speed_real_r);Serial2.print("\t");
-  Serial2.print("\r\n");
-*/
   speed_real_l = 0;
   speed_real_r = 0;
 }
