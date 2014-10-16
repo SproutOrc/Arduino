@@ -3,16 +3,16 @@
 #include "MPU6050_6Axis_MotionApps20.h"
 
 #define LED 13
-#define PWM_L 5
-#define PWM_R 4
+#define PWM_L 7
+#define PWM_R 6
 #define DIR_L1 10
 #define DIR_L2 11
 #define DIR_R1 8
 #define DIR_R2 9
 #define SPD_INT_L 2//1
-#define SPD_PUL_L 6
+#define SPD_PUL_L 4
 #define SPD_INT_R 3//7
-#define SPD_PUL_R 7
+#define SPD_PUL_R 5
 #define MPU_INT 18//0
 #define K_AGL_AD A0
 #define K_AGL_DOT_AD A1
@@ -153,8 +153,8 @@ void loop()
     // angle and angular rate unit: radian
 //    angle_X = ypr[2] + 0;                  // 0.017 is center of gravity offset
 //    angular_rate_X = -((double)gyro[0]/131.0); // converted to radian
-    angle = ypr[1] + 0.06;                   // 0.02 is center of gravity offset
-    angular_rate = -((double)gyro[1]/131.0); // converted to radian
+    angle = ypr[0] + 0.06;                   // 0.02 is center of gravity offset
+    angular_rate = ((double)gyro[1]/131.0); // converted to radian
 /*
     Serial2.print(angle * RAD_TO_DEG);Serial2.print("  ");
     Serial2.print(angular_rate * RAD_TO_DEG);Serial2.print("  ");
