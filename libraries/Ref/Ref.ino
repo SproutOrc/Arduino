@@ -31,7 +31,7 @@ void AngleSabilityControl(
 void SpeedSabilityControl(
             float &nowSpeedControl, 
             float &lastSpeedControl, 
-      const float &setSpeed,
+      const int &setSpeed,
             int &leftSpeed,
             int &rightSpeed
 ) {
@@ -84,8 +84,7 @@ void TurnSpeedSabilityControl(
             float &lastTurnSpeedControl,
       const float &gyro,
       const float &setTurnSpeed, 
-      const int &leftSpeed, 
-      const int &rightSpeed
+      const int &leftSpeed, peed
 ) {
     float value;
     float error;

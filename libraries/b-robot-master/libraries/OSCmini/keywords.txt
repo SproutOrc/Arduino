@@ -1,3 +1,0 @@
-OSCmini	KEYWORD1
-MsgRead	KEYWORD2
-MsgSend	KEYWORD2
