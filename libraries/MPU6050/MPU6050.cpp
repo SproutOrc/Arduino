@@ -63,7 +63,7 @@ MPU6050::MPU6050(uint8_t address) {
 void MPU6050::initialize() {
     setClockSource(MPU6050_CLOCK_PLL_XGYRO);
     setFullScaleGyroRange(MPU6050_GYRO_FS_250);
-    setFullScaleAccelRange(MPU6050_ACCEL_FS_2);
+    setFullScaleAccelRange(MPU6050_ACCEL_FS_4);
     setSleepEnabled(false); // thanks to Jack Elston for pointing this one out!
 }
 
@@ -865,7 +865,7 @@ void MPU6050::setMasterClockSpeed(uint8_t speed) {
  * In read mode, the result of the read is placed in the lowest available 
  * EXT_SENS_DATA register. For further information regarding the allocation of
  * read results, please refer to the EXT_SENS_DATA register description
- * (Registers 73 – 96).
+ * (Registers 73 ï¿½ 96).
  *
  * The MPU-6050 supports a total of five slaves, but Slave 4 has unique
  * characteristics, and so it has its own functions (getSlave4* and setSlave4*).
